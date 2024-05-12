@@ -3,6 +3,7 @@ from email.mime.text import MIMEText
 from smtplib import SMTPAuthenticationError
 import smtplib
 
+from aw.logger import Logger
 from aw.record import Record
 from aw.timestamper import TimeStamper
 
@@ -23,6 +24,8 @@ class Mailer:
         port number of the smtp server
     timestamper : TimeStamper
         TimeStamper object which gives current timestamps
+    logger : Logger
+        Logger object, which handles logging
     msg : MIMUEMultipart | None
         MIMEMUltipart object, contains message to send via smtp
     msgBody : str
@@ -36,7 +39,7 @@ class Mailer:
 
     
     """
-    def __init__(self, sender: str, receiver: str, password: str, smtp: str, port: str | int, timestamper: TimeStamper) -> None:
+    def __init__(self, sender: str, receiver: str, password: str, smtp: str, port: str | int, timestamper: TimeStamper, logger: Logger) -> None:
         """Constructor.
 
         Parameters:
@@ -66,7 +69,7 @@ class Mailer:
         else:
             self.port = port
                     
-            
+        self.logger = logger
 
         self.timestamper = timestamper
 
